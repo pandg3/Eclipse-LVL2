@@ -3,15 +3,15 @@ package Leauge_Invaders;
 import java.awt.Graphics;
 
 public class GameObject {
-int x;
-int y;
-int width;
-int height;
+boolean isAlive = true;
+int x = 250;
+int y = 700;
+int width = 50;
+int height = 50;
 void update(){
-	x++;
-	y++;
+	
 }
 void draw(Graphics g){
-	g.fillRect(x, y, 100, 100);
+	
 	}
 }

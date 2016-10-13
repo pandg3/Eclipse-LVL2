@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.naming.ldap.ManageReferralControl;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -18,6 +19,11 @@ final int MENU_STATE = 0;
 final int GAME_STATE = 1;
 final int END_STATE = 2;
 int currentState = 0;
+ObjectManager manager = new ObjectManager();
+public GamePanel() {
+	manager.addObject(Rckt);
+}
+Rocketship Rckt = new Rocketship();
 public void paintComponent(Graphics g){
 	if(currentState == MENU_STATE){
 		drawMenuState(g);
@@ -37,13 +43,13 @@ void updateMenuState(){
 	
 }
 void updateGameState(){
-	
+
 }
 void updateEndState(){
 	
 }
 void drawMenuState(Graphics g){
-	System.out.println(titleFont.getFamily());
+	
 	g.setColor(Color.BLUE);
 	g.fillRect(0, 0, Leauge_Invaders.gWidth, Leauge_Invaders.gHight);    
 	g.setFont(titleFont);
@@ -53,6 +59,7 @@ void drawMenuState(Graphics g){
 void drawGameState(Graphics g){
 	g.setColor(Color.BLACK);
 	g.fillRect(0, 0, Leauge_Invaders.gWidth, Leauge_Invaders.gHight);  
+	manager.draw(g);
 }
 void drawEndState(Graphics g){
 	g.setColor(Color.RED);
@@ -94,8 +101,31 @@ void drawEndState(Graphics g){
 			else{
 				currentState++;
 			}
-			
+			System.out.println(e.getID());
+			System.out.println(e.getKeyCode());
+		
+		
 
+		}
+		if (e.getKeyCode()==KeyEvent.VK_RIGHT){
+			System.out.println("Right");
+			Rckt.x+=Rckt.speed;
+			Rckt.update();
+		}
+		else if (e.getKeyCode()==KeyEvent.VK_LEFT){
+			System.out.println("Left");
+			Rckt.x-=Rckt.speed;
+			Rckt.update();
+		}
+		else if(e.getKeyCode()==KeyEvent.VK_UP){
+			System.out.println("up");
+			Rckt.y-=Rckt.speed;
+			Rckt.update();
+		}
+		else if(e.getKeyCode()==KeyEvent.VK_DOWN){
+			System.out.println("Down");
+			Rckt.y+=Rckt.speed;
+			Rckt.update();
 		}
 	}
 	@Override
