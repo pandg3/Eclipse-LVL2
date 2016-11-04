@@ -12,11 +12,11 @@ public class aliens extends GameObject {
 
 	void update() {
 		y += 2;
-		int xsped = 3;
+		int xsped = 3
 		x += 3;
 
 		if (x > 450) {
-			xsped = -xsped;
+			x = -x;
 
 			System.out.println("bounce!");
 		}
