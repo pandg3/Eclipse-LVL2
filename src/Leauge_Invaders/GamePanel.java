@@ -17,14 +17,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
+	int score;
 	int currentState = 0;
-	ObjectManager manager = new ObjectManager();
-
+	ObjectManager manager;  
+	Rocketship Rckt;  
 	public GamePanel() {
+		manager = new ObjectManager();
+		Rckt=new Rocketship(250, 700, 50, 50);
 		manager.addObject(Rckt);
 	}
 
-	Rocketship Rckt = new Rocketship(250, 700, 50, 50);
+	
 
 	public void paintComponent(Graphics g) {
 		if (currentState == MENU_STATE) {
@@ -47,8 +50,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void updateGameState() {
+		score = manager.getScore();
+		
 		manager.update();
 		manager.manageEnemies();
+		manager.checkCollision();
+		if (!Rckt.isAlive){
+			System.out.println("DEAD!");
+			currentState = END_STATE;
+			manager.reset();
+			
+			
+		}
 	}
 
 	void updateEndState() {
