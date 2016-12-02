@@ -7,7 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -17,6 +20,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int MENU_STATE = 0;
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
+	public static BufferedImage alienImg;
+	public static BufferedImage rocketImg0;
+	public static BufferedImage rocketImg1;
+	public static BufferedImage rocketImg2;
+	public static BufferedImage bulletImg;
+
 	int score;
 	int currentState = 0;
 	ObjectManager manager;  
@@ -25,6 +34,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		manager = new ObjectManager();
 		Rckt=new Rocketship(250, 700, 50, 50);
 		manager.addObject(Rckt);
+		try {
+			//alienImg = ImageIO.read(this.getClass().getResourceAsStream(""));
+			rocketImg0 = ImageIO.read(this.getClass().getResourceAsStream("Rocket0.png"));			
+			rocketImg1 = ImageIO.read(this.getClass().getResourceAsStream("Rocket1.png"));
+			rocketImg2 = ImageIO.read(this.getClass().getResourceAsStream("Rocket2.png"));
+			//bulletImg = ImageIO.read(this.getClass().getResourceAsStream(""));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	
@@ -59,7 +79,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			System.out.println("DEAD!");
 			currentState = END_STATE;
 			manager.reset();
-			
+			Rckt = new Rocketship(250, 700, 50, 50);
+			manager.addObject(Rckt);
 			
 		}
 	}
